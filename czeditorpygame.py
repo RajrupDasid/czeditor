@@ -18,6 +18,8 @@ import wavfile
 import copy
 import numpy as np
 from scipy.spatial.transform import Rotation as R
+import platform
+"""Mapping section -- Map anything here if you have to add anythng or refactor something"""
 globalcache = {}
 framecache = {}
 keyframecache = {}
@@ -25,6 +27,7 @@ filledframes = {}
 openedimages = {}
 generated = {"xp":{},"ubuntu":{},"95":{},"macwindow":{},"7":{},"custom":{}}
 emptyimg = Image.new("RGBA",(100,100),(255,0,255))
+"""End of mapping section"""
 
 def openimage(s):
     if s in openedimages:
@@ -37,7 +40,7 @@ def find_coeffs(pa, pb):
         matrix.append([p1[0], p1[1], 1, 0, 0, 0, -p2[0]*p1[0], -p2[0]*p1[1]])
         matrix.append([0, 0, 0, p1[0], p1[1], 1, -p2[1]*p1[0], -p2[1]*p1[1]])
 
-    A = np.matrix(matrix, dtype=numpy.float)
+    A = np.matrix(matrix, dtype=numpy.float_)
     B = np.array(pb).reshape(8)
 
     res = np.dot(numpy.linalg.inv(A.T * A) * A.T, B)
